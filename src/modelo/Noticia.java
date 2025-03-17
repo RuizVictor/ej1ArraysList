@@ -4,33 +4,36 @@
  */
 package modelo;
 
-import java.util.Objects;
+import utilidades.Fecha;
 
 /**
  *
  * @author dam
  */
-public class Categoria {
-    private String codigo;
-    private String denominacion;
+public class Noticia {
+    int codigo;
+    String titulo;
+    String usuario;
+    String fecha;
+    String categoria;
 
-    public Categoria(String codigo, String denominacion) {
+    public Noticia(int codigo, String titulo, String usuario, String fecha, String categoria) {
         this.codigo = codigo;
-        this.denominacion = denominacion;
+        this.titulo = titulo;
+        this.usuario = usuario;
+        this.fecha = fecha;
+        this.categoria = categoria;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Noticia(int codigo) {
+        this.codigo = codigo;
     }
-
-    public String getDenominacion() {
-        return denominacion;
-    }
+    
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.codigo);
+        int hash = 7;
+        hash = 79 * hash + this.codigo;
         return hash;
     }
 
@@ -45,14 +48,8 @@ public class Categoria {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Categoria other = (Categoria) obj;
-        return Objects.equals(this.codigo, other.codigo);
+        final Noticia other = (Noticia) obj;
+        return this.codigo == other.codigo;
     }
-
-    @Override
-    public String toString() {
-        return  denominacion;
-    }
-    
     
 }
