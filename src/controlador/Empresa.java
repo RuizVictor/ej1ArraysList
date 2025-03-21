@@ -48,6 +48,10 @@ public class Empresa {
         return categorias;
     }
 
+    public ArrayList<Noticia> getNoticias() {
+        return noticias;
+    }
+
     public boolean grabarNoticia(int codigo, String deno, String fecha, String codCate, int posLogueado) {
         boolean resultado=false;
         resultado=noticias.contains(new Noticia(codigo));

@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.Empresa;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -15,6 +16,8 @@ public class VtnOpciones extends javax.swing.JFrame {
     Empresa empresa;
     int posLogueado;
     PanelAlta panelAlta;
+    PanelConsulta panelConsulta;
+    
 
     /**
      * Creates new form VtnOpciones
@@ -60,6 +63,11 @@ public class VtnOpciones extends javax.swing.JFrame {
         jMenu1.add(mnuAlta);
 
         mnuConsulta.setText("CONSULTA");
+        mnuConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuConsultaActionPerformed(evt);
+            }
+        });
         jMenu1.add(mnuConsulta);
 
         jMenuBar1.add(jMenu1);
@@ -108,11 +116,20 @@ public class VtnOpciones extends javax.swing.JFrame {
         pack();
     }//GEN-LAST:event_mnuAltaActionPerformed
 
+    private void mnuConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConsultaActionPerformed
+        eliminarPaneles();
+        panelConsulta= new PanelConsulta(empresa,posLogueado);
+        getContentPane().add(panelConsulta,BorderLayout.CENTER);
+        pack();
+    }//GEN-LAST:event_mnuConsultaActionPerformed
+
     private void eliminarPaneles() {
         try {
             remove(panelAlta);
-        } catch (Exception ex) {
-        }
+        } catch (Exception ex) {}
+               try {
+            remove(panelConsulta);
+        } catch (Exception ex) {}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

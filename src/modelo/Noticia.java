@@ -11,11 +11,11 @@ import utilidades.Fecha;
  * @author dam
  */
 public class Noticia {
-    int codigo;
-    String titulo;
-    String usuario;
-    String fecha;
-    String categoria;
+    private int codigo;
+    private String titulo;
+    private String usuario;
+    private String fecha;
+    private String categoria;
 
     public Noticia(int codigo, String titulo, String usuario, String fecha, String categoria) {
         this.codigo = codigo;
@@ -51,5 +51,26 @@ public class Noticia {
         final Noticia other = (Noticia) obj;
         return this.codigo == other.codigo;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+    
     
 }
