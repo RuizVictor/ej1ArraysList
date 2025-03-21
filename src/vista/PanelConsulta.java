@@ -7,7 +7,9 @@ package vista;
 import controlador.Empresa;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.MiModelo;
 import modelo.Noticia;
 
 /**
@@ -18,7 +20,7 @@ public class PanelConsulta extends javax.swing.JPanel {
 
     Empresa empresa;
     int posLogueado;
-    DefaultTableModel modelo;
+    MiModelo modelo;
 
     /**
      * Creates new form PanelConsulta
@@ -32,16 +34,16 @@ public class PanelConsulta extends javax.swing.JPanel {
     }
 
     private void configurarCuadricula() {
-        modelo = new DefaultTableModel();
-        String [] titulos={"Codgio", "Titulo", "Fecha", "Categoria"};
+        modelo = new MiModelo();
+        String[] titulos = {"Codgio", "Titulo", "Fecha", "Categoria"};
         modelo.setColumnIdentifiers(titulos);
         tblNoticias.setModel(modelo);
     }
-    
-    private void mostrarNoticias(){
-        ArrayList<Noticia> noticias=empresa.getNoticias();
-        for(Noticia n:noticias){
-            Vector v=new Vector();
+
+    private void mostrarNoticias() {
+        ArrayList<Noticia> noticias = empresa.getNoticias();
+        for (Noticia n : noticias) {
+            Vector v = new Vector();
             v.add(n.getCodigo());
             v.add(n.getTitulo());
             v.add(n.getFecha());
@@ -73,24 +75,45 @@ public class PanelConsulta extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblNoticias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNoticiasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblNoticias);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 213, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 182, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblNoticiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNoticiasMouseClicked
+        int fila = tblNoticias.rowAtPoint(evt.getPoint());
+        int codigoNoticia = (int) tblNoticias.getValueAt(fila, 0);
+        if (empresa.comprobarNoticiaUsuario(codigoNoticia, posLogueado)) {
+            int opcion = JOptionPane.showConfirmDialog(this, "Desea borrar esta noticia",
+                    "EliminarNoticia", JOptionPane.YES_NO_OPTION);
+            //si es 0, no es 1
+            if (opcion == 0) {
+                modelo.removeRow(fila);
+                empresa.eliminarUnaNoticia(codigoNoticia);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "no eres el autor de la noticia");
+        }
+    }//GEN-LAST:event_tblNoticiasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

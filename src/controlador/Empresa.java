@@ -1,4 +1,3 @@
-
 package controlador;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Empresa {
     public Empresa() {
         usuarios = new ArrayList<>();
         categorias = new ArrayList<>();
-        noticias= new ArrayList<>();
+        noticias = new ArrayList<>();
     }
 
     public void anadir() {
@@ -53,15 +52,31 @@ public class Empresa {
     }
 
     public boolean grabarNoticia(int codigo, String deno, String fecha, String codCate, int posLogueado) {
-        boolean resultado=false;
-        resultado=noticias.contains(new Noticia(codigo));
-        if(!resultado){
-            Noticia n=new Noticia( codigo,  deno,  datosUsuario(posLogueado), fecha,  codCate);
+        boolean resultado = false;
+        resultado = noticias.contains(new Noticia(codigo));
+        if (!resultado) {
+            Noticia n = new Noticia(codigo, deno, datosUsuario(posLogueado), fecha, codCate);
             noticias.add(n);
         }
         return resultado;
     }
 
- 
-    
+    public boolean comprobarNoticiaUsuario(int codigo, int posLogueado) {
+        boolean resultado = false;
+        int pos = noticias.indexOf(new Noticia(codigo));
+        if (pos != -1) {
+            if (usuarios.get(posLogueado).getLogin().equals(noticias.get(pos).getUsuario())) {
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
+    public void eliminarUnaNoticia(int codigoNoticia) {
+        int pos = noticias.indexOf(new Noticia(codigoNoticia));
+        if (pos != -1) {
+            noticias.remove(pos);
+        }
+    }
+
 }
